@@ -9,8 +9,6 @@ before_script:
 script:
   - cargo +nightly-2018-07-17 fmt -- --check && RUST_BACKTRACE=1 cargo test --verbose --all
 matrix:
-  allow_failures:
-    - rust: nightly
   include:
     - os: linux
     - os: osx
