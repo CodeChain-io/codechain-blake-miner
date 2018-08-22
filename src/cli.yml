@@ -1,0 +1,14 @@
+name: codechain-blake-miner
+version: "0.1.0"
+version_short: "v"
+author: CodeChain Team <codechain@kodebox.io>
+about: CodeChian Blake Miner
+args:
+  - listening port:
+      short: p
+      takes_value: true
+      default_value: "3333"
+  - submitting port:
+      short: s
+      takes_value: true
+      default_value: "8080"
