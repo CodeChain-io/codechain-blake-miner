@@ -36,10 +36,8 @@ fn get_options() -> Result<BlakeConfig, String> {
     let yaml = load_yaml!("./cli.yml");
     let matches = clap::App::from_yaml(yaml).get_matches();
 
-    let listening_port: u16 =
-        matches.value_of("listening port").unwrap().parse().map_err(|_| "Invalid listening port")?;
-    let submitting_port: u16 =
-        matches.value_of("submitting port").unwrap().parse().map_err(|_| "Invalid submitting port")?;
+    let listening_port = value_t!(matches, "listening port", u16).map_err(|_| "Invalid listening port")?;
+    let submitting_port = value_t!(matches, "submitting port", u16).map_err(|_| "Invalid submitting port")?;
 
     Ok(BlakeConfig {
         listening_port,
