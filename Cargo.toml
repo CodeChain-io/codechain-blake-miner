@@ -7,7 +7,7 @@ authors = ["CodeChain Team <codechain@kodebox.io>"]
 [dependencies]
 byteorder = "1.2"
 clap = { version = "2", features = ["yaml"] }
-codechain-miner = { git = "https://github.com/CodeChain-io/codechain-miner.git", rev = "4f498a4a" }
+codechain-miner = { path = "../codechain-miner" }
 env_logger = "0.5.12"
 ethereum-types = "0.3.2"
 log = "0.4.3"
