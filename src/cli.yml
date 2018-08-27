@@ -6,9 +6,11 @@ about: CodeChian Blake Miner
 args:
   - listening port:
       short: p
+      long: port
       takes_value: true
       default_value: "3333"
   - submitting port:
       short: s
+      long: submit
       takes_value: true
       default_value: "8080"
