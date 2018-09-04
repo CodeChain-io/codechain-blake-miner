@@ -14,3 +14,8 @@ args:
       long: submit
       takes_value: true
       default_value: "8080"
+  - concurrent jobs:
+      short: j
+      long: jobs
+      takes_value: true
+      default_value: "1"
