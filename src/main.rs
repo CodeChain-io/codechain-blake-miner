@@ -38,10 +38,12 @@ fn get_options() -> Result<BlakeConfig, String> {
 
     let listening_port = value_t!(matches, "listening port", u16).map_err(|_| "Invalid listening port")?;
     let submitting_port = value_t!(matches, "submitting port", u16).map_err(|_| "Invalid submitting port")?;
+    let concurrent_jobs = value_t!(matches, "concurrent jobs", u16).map_err(|_| "Invalid concurrent jobs")?;
 
     Ok(BlakeConfig {
         listening_port,
         submitting_port,
+        concurrent_jobs,
     })
 }
 

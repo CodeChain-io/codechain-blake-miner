@@ -19,9 +19,9 @@ codechain-blake-miner [OPTIONS]
 ```
 
 ### Usage Examples
-* listening to port **3333**, submitting to port **8080** :
+* listening on port **3333**, submitting on port **8080**, **1** concurrent jobs :
 ```
-codechain-blake-miner -p 3333 -s 8080
+codechain-blake-miner -p 3333 -s 8080 -j 1
 ```
 
 ## Configuration
@@ -30,3 +30,4 @@ codechain-blake-miner -p 3333 -s 8080
 | :----: | ------------------------------ |:-------------:|:--------:|
 | `-p`   | Port number to receive job     | 3333 | No |
 | `-s`   | Port number to submit solution | 8080 | No |
+| `-j`   | The number of concurrent jobs  |    1 | No |
