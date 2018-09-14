@@ -28,7 +28,7 @@ extern crate rlp;
 mod config;
 mod worker;
 
-use cminer::run;
+use cminer::{run, HttpConfig, RpcConfig, StratumConfig};
 
 use self::config::BlakeConfig;
 
@@ -36,13 +36,32 @@ fn get_options() -> Result<BlakeConfig, String> {
     let yaml = load_yaml!("./cli.yml");
     let matches = clap::App::from_yaml(yaml).get_matches();
 
-    let listening_port = value_t!(matches, "listening port", u16).map_err(|_| "Invalid listening port")?;
-    let submitting_port = value_t!(matches, "submitting port", u16).map_err(|_| "Invalid submitting port")?;
     let concurrent_jobs = value_t!(matches, "concurrent jobs", u16).map_err(|_| "Invalid concurrent jobs")?;
 
+    let rpc_config: RpcConfig = if let Some(ref matches) = matches.subcommand_matches("http") {
+        let listening_port = value_t!(matches, "listening port", u16).map_err(|_| "Invalid listening port")?;
+        let submitting_port = value_t!(matches, "submitting port", u16).map_err(|_| "Invalid submitting port")?;
+
+        RpcConfig::Http(HttpConfig {
+            listen_port: listening_port,
+            submitting_port,
+        })
+    } else if let Some(ref matches) = matches.subcommand_matches("stratum") {
+        let server_port = value_t!(matches, "server port", u16).map_err(|_| "Invalid server port")?;
+        let miner_name = value_t!(matches, "miner name", String).map_err(|_| "Invalid miner name")?;
+        let miner_pwd = value_t!(matches, "miner pwd", String).map_err(|_| "Invalid miner password")?;
+
+        RpcConfig::Stratum(StratumConfig {
+            port: server_port,
+            id: miner_name,
+            pwd: miner_pwd,
+        })
+    } else {
+        return Err(format!("Invalid RPC Config"))
+    };
+
     Ok(BlakeConfig {
-        listening_port,
-        submitting_port,
+        rpc_config,
         concurrent_jobs,
     })
 }
