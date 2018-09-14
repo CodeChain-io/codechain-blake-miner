@@ -14,23 +14,19 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use cminer::{Config, HttpConfig, RpcConfig, Worker};
+use cminer::{Config, RpcConfig, Worker};
 
 use super::worker::BlakeWorker;
 
-#[derive(Clone, Copy)]
+#[derive(Clone)]
 pub struct BlakeConfig {
-    pub listening_port: u16,
-    pub submitting_port: u16,
+    pub rpc_config: RpcConfig,
     pub concurrent_jobs: u16,
 }
 
 impl Config for BlakeConfig {
     fn rpc_config(&self) -> RpcConfig {
-        RpcConfig::Http(HttpConfig {
-            listen_port: self.listening_port,
-            submitting_port: self.submitting_port,
-        })
+        self.rpc_config.clone()
     }
 
     fn jobs(&self) -> usize {
