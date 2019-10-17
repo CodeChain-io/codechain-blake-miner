@@ -33,7 +33,7 @@ impl Config for BlakeConfig {
         self.concurrent_jobs as usize
     }
 
-    fn worker(&self) -> Box<Worker> {
+    fn worker(&self) -> Box<dyn Worker> {
         Box::new(BlakeWorker::new())
     }
 }
